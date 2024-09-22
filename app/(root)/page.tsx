@@ -33,7 +33,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
             </Button>
           </div>
 
-          <Image 
+          <Image
             src="/assets/images/hero.png"
             alt="hero"
             width={1000}
@@ -41,7 +41,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
             className="max-h-[70vh] object-contain object-center 2xl:max-h-[50vh]"
           />
         </div>
-      </section> 
+      </section>
 
       <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
         <h2 className="h2-bold">Trust by <br /> Thousands of Events</h2>
@@ -51,7 +51,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
           <CategoryFilter />
         </div>
 
-        <Collection 
+        <Collection
           data={events?.data}
           emptyTitle="No Events Found"
           emptyStateSubtext="Come back later"
