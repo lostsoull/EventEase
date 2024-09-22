@@ -1,10 +1,13 @@
-import EventForm from "@/components/shared/EventForm"
+import EventForm from "@/components/shared/EventForm";
 import { auth } from "@clerk/nextjs";
 
 const CreateEvent = () => {
+  // Fetch the user's session claims (including userId)
   const { sessionClaims } = auth();
-
   const userId = sessionClaims?.userId as string;
+
+  // Now, let's log the userId to the console for debugging purposes
+  console.log("data stored :", userId);
 
   return (
     <>
@@ -13,10 +16,11 @@ const CreateEvent = () => {
       </section>
 
       <div className="wrapper my-8">
+        {/* Pass the userId to the EventForm component */}
         <EventForm userId={userId} type="Create" />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default CreateEvent
+export default CreateEvent;
