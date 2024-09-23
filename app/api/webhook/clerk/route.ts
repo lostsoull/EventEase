@@ -7,7 +7,7 @@ import { Webhook } from "svix";
 import { createUser } from "@/app/lib/actions/user.actions";
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
-  const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
+  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
   console.log("ITS WORKING")
 
   if (!WEBHOOK_SECRET) {
@@ -60,29 +60,17 @@ export async function POST(req: Request) {
   console.log("event", eventType)
 
   // CREATE User in mongodb
-  // if (eventType === "user.created") {
-  //   const { id, email_addresses, image_url, first_name, last_name, username } =
-  //     evt.data;
-  if (true) {
-    // const { id, email_addresses, image_url, first_name, last_name, username } =
-    //   evt.data;
+  if (eventType === "user.created") {
+    const { id, email_addresses, image_url, first_name, last_name, username } =
+      evt.data;
 
-    // const user = {
-    //   clerkId: id,
-    //   email: email_addresses[0].email_address,
-    //   username: username!,
-    //   firstName: first_name,
-    //   lastName: last_name,
-    //   photo: image_url,
-    // };
-    const id = "IDX01P09193";
     const user = {
       clerkId: id,
-      email: "test@gmail.com",
-      username: "test",
-      firstName: "test",
-      lastName: "last_name",
-      photo: "image_url",
+      email: email_addresses[0].email_address,
+      username: username!,
+      firstName: first_name,
+      lastName: last_name,
+      photo: image_url,
     };
 
     console.log(user);
