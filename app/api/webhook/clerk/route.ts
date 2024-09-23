@@ -4,10 +4,11 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 
-import { createUser } from "@/lib/actions/user.actions";
+import { createUser } from "@/app/lib/actions/user.actions";
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
+  console.log("ITS WORKING")
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
@@ -36,6 +37,8 @@ export async function POST(req: Request) {
   const wh = new Webhook(WEBHOOK_SECRET);
 
   let evt: WebhookEvent;
+  console.log("SVIX INSTANCEE")
+
 
   // Verify the payload with the headers
   try {
@@ -54,22 +57,36 @@ export async function POST(req: Request) {
   // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
+  console.log("event", eventType)
 
   // CREATE User in mongodb
-  if (eventType === "user.created") {
-    const { id, email_addresses, image_url, first_name, last_name, username } =
-      evt.data;
+  // if (eventType === "user.created") {
+  //   const { id, email_addresses, image_url, first_name, last_name, username } =
+  //     evt.data;
+  if (true) {
+    // const { id, email_addresses, image_url, first_name, last_name, username } =
+    //   evt.data;
 
+    // const user = {
+    //   clerkId: id,
+    //   email: email_addresses[0].email_address,
+    //   username: username!,
+    //   firstName: first_name,
+    //   lastName: last_name,
+    //   photo: image_url,
+    // };
+    const id = "IDX01P09193";
     const user = {
       clerkId: id,
-      email: email_addresses[0].email_address,
-      username: username!,
-      firstName: first_name,
-      lastName: last_name,
-      photo: image_url,
+      email: "test@gmail.com",
+      username: "test",
+      firstName: "test",
+      lastName: "last_name",
+      photo: "image_url",
     };
 
     console.log(user);
+    console.log("is user there")
 
     const newUser = await createUser(user);
 

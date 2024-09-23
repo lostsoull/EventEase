@@ -2,11 +2,11 @@
 
 import { revalidatePath } from 'next/cache'
 
-import { connectToDatabase } from '@/lib/database'
-import Event from '@/lib/database/models/event.model'
-import User from '@/lib/database/models/user.model'
-import Category from '@/lib/database/models/category.model'
-import { handleError } from '@/lib/utils'
+import { connectToDatabase } from '@/app/lib/database'
+import Event from '@/app/lib/database/models/event.model'
+import User from '@/app/lib/database/models/user.model'
+import Category from '@/app/lib/database/models/category.model'
+import { handleError } from '@/app/lib/utils'
 
 import {
   CreateEventParams,
@@ -16,6 +16,7 @@ import {
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
 } from '@/types'
+import mongoose from 'mongoose'
 
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: 'i' } })
@@ -31,9 +32,24 @@ const populateEvent = (query: any) => {
 export async function createEvent({ userId, event, path }: CreateEventParams) {
   try {
     await connectToDatabase()
-    console.log("user id is :", userId)
-    const organizer = await User.findById(userId)
-    if (!organizer) throw new Error('Organizer not found')
+    // console.log("user id is :", userId)
+    // const organizer = await User.findById(userId)
+    // if (!organizer) throw new Error('Organizer not found')
+    const userId = '507f191e810c19729de860ea';
+    const organizerObjectId = new mongoose.Types.ObjectId(userId);
+
+    const event: CreateEventParams['event'] = {
+      title: 'Fake Event',
+      description: 'This is a fake event',
+      location: 'Fake Location',
+      imageUrl: 'https://example.com/fake-image.jpg',
+      startDateTime: new Date('2024-10-01T10:00:00'),
+      endDateTime: new Date('2024-10-01T12:00:00'),
+      categoryId: '66f161d399fd958b258cf709',
+      price: '19.99',
+      isFree: false,
+      url: 'https://example.com/fake-event/test',
+    };
 
 
     const newEvent = await Event.create({ ...event, category: event.categoryId, organizer: userId })

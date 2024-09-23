@@ -7,9 +7,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { getAllCategories } from "@/lib/actions/category.actions";
-import { ICategory } from "@/lib/database/models/category.model";
-import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
+import { getAllCategories } from "@/app/lib/actions/category.actions";
+import { ICategory } from "@/app/lib/database/models/category.model";
+import { formUrlQuery, removeKeysFromQuery } from "@/app/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -29,22 +29,22 @@ const CategoryFilter = () => {
   }, [])
 
   const onSelectCategory = (category: string) => {
-      let newUrl = '';
+    let newUrl = '';
 
-      if(category && category !== 'All') {
-        newUrl = formUrlQuery({
-          params: searchParams.toString(),
-          key: 'category',
-          value: category
-        })
-      } else {
-        newUrl = removeKeysFromQuery({
-          params: searchParams.toString(),
-          keysToRemove: ['category']
-        })
-      }
+    if (category && category !== 'All') {
+      newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: 'category',
+        value: category
+      })
+    } else {
+      newUrl = removeKeysFromQuery({
+        params: searchParams.toString(),
+        keysToRemove: ['category']
+      })
+    }
 
-      router.push(newUrl, { scroll: false });
+    router.push(newUrl, { scroll: false });
   }
 
   return (

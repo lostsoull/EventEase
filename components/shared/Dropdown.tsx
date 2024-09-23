@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ICategory } from "@/lib/database/models/category.model"
+import { ICategory } from "@/app/lib/database/models/category.model"
 import { startTransition, useEffect, useState } from "react"
 import {
   AlertDialog,
@@ -19,7 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Input } from "../ui/input"
-import { createCategory, getAllCategories } from "@/lib/actions/category.actions"
+import { createCategory, getAllCategories } from "@/app/lib/actions/category.actions"
 
 type DropdownProps = {
   value?: string
