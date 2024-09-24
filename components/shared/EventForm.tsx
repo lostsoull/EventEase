@@ -65,7 +65,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       try {
         console.log("TEST3")
         const newEvent = await createEvent({
-          event: { ...values, imageUrl: "its working" },
+          event: { ...values, imageUrl:  },
           userId,
           path: '/profile'
         })
