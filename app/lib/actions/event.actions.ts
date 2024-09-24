@@ -16,7 +16,6 @@ import {
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
 } from '@/types'
-import mongoose from 'mongoose'
 
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: 'i' } })
@@ -31,24 +30,31 @@ const populateEvent = (query: any) => {
 // CREATE
 export async function createEvent({ userId, event, path }: CreateEventParams) {
   try {
+    console.log("TEST2")
+
     await connectToDatabase()
     console.log("user id is :", userId)
-    const organizer = await User.findById(userId)
+
+    const organizer = await User.findOne({ clerkId: userId })
     if (!organizer) throw new Error('User not found')
 
 
-    const organizerObjectId = new mongoose.Types.ObjectId(userId); // Ensure this is a valid ID
-    const newEvent = await Event.create({ ...event, category: event.categoryId, organizer: userId })
+    console.log("TEST2")
+    const newEvent = await Event.create({ ...event, category: event.categoryId, organizer: organizer._id })
+    console.log("TEST2")
     revalidatePath(path)
 
     return JSON.parse(JSON.stringify(newEvent))
   } catch (error) {
+    console.log("test2")
     handleError(error)
   }
 }
 
 // GET ONE EVENT BY ID
 export async function getEventById(eventId: string) {
+  console.log("TEST")
+
   try {
     await connectToDatabase()
 
@@ -130,8 +136,9 @@ export async function getAllEvents({ query, limit = 6, page, category }: GetAllE
 export async function getEventsByUser({ userId, limit = 6, page }: GetEventsByUserParams) {
   try {
     await connectToDatabase()
+    const user = await User.findOne({ clerkId: userId })
 
-    const conditions = { organizer: userId }
+    const conditions = { organizer: user._id }
     const skipAmount = (page - 1) * limit
 
     const eventsQuery = Event.find(conditions)

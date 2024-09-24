@@ -7,7 +7,7 @@ import { handleError } from '../utils';
 import { connectToDatabase } from '../database';
 import Order from '../database/models/order.model';
 import Event from '../database/models/event.model';
-import {ObjectId} from 'mongodb';
+import { ObjectId } from 'mongodb';
 import User from '../database/models/user.model';
 
 export const checkoutOrder = async (order: CheckoutOrderParams) => {
@@ -47,7 +47,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
 export const createOrder = async (order: CreateOrderParams) => {
   try {
     await connectToDatabase();
-    
+
     const newOrder = await Order.create({
       ...order,
       event: order.eventId,
@@ -122,7 +122,9 @@ export async function getOrdersByUser({ userId, limit = 3, page }: GetOrdersByUs
     await connectToDatabase()
 
     const skipAmount = (Number(page) - 1) * limit
-    const conditions = { buyer: userId }
+    const user = await User.findOne({ clerkId: userId })
+
+    const conditions = { buyer: user._id }
 
     const orders = await Order.distinct('event._id')
       .find(conditions)

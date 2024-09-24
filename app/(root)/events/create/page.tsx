@@ -6,6 +6,7 @@ const CreateEvent = () => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
+
   // Now, let's log the userId to the console for debugging purposes
   console.log("data stored :", userId);
 

@@ -19,7 +19,7 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
           <Image
-            src={event.imageUrl}
+            src="/"
             alt="hero image"
             width={1000}
             height={1000}
@@ -42,7 +42,7 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
 
                 <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
                   by{' '}
-                  <span className="text-primary-500">{event.organizer.firstName} {event.organizer.lastName}</span>
+                  <span className="text-primary-500">{event.organizer.username} {event.organizer.lastName}</span>
                 </p>
               </div>
             </div>
