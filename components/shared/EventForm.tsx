@@ -50,9 +50,10 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
 
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let uploadedImageUrl = values.imageUrl;
-
+    const imageUrl = "https://picsum.photos/200/30"
     if (files.length > 0) {
       const uploadedImages = await startUpload(files)
+
 
       if (!uploadedImages) {
         return
@@ -64,7 +65,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
     if (type === 'Create') {
       try {
         const newEvent = await createEvent({
-          event: { ...values, imageUrl: uploadedImageUrl },
+          event: { ...values, imageUrl: imageUrl },
           userId,
           path: '/profile'
         })
