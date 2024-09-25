@@ -6,7 +6,7 @@ import { useDropzone } from '@uploadthing/react/hooks'
 import { generateClientDropzoneAccept } from 'uploadthing/client'
 
 import { Button } from '@/components/ui/button'
-import { convertFileToUrl } from '@/app/lib/utils'
+import { convertFileToUrl } from '../../app/lib/utils'
 
 type FileUploaderProps = {
   onFieldChange: (url: string) => void
