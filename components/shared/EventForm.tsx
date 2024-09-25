@@ -112,7 +112,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Input placeholder="Event title" {...field} className="input-field" />
+                  <Input placeholder="Titre" {...field} className="input-field" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -178,7 +178,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       height={24}
                     />
 
-                    <Input placeholder="Event location or Online" {...field} className="input-field" />
+                    <Input placeholder="Addresse d'évenement ou Enligne" {...field} className="input-field" />
                   </div>
 
                 </FormControl>
@@ -267,7 +267,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       height={24}
                       className="filter-grey"
                     />
-                    <Input type="number" placeholder="Price" {...field} className="p-regular-16 border-0 bg-grey-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0" />
+                    <Input type="number" placeholder="Prix ticket" {...field} className="p-regular-16 border-0 bg-grey-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0" />
                     <FormField
                       control={form.control}
                       name="isFree"
@@ -326,7 +326,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           className="button col-span-2 w-full"
         >
           {form.formState.isSubmitting ? (
-            'Submitting...'
+            'Création en cours...'
           ) : `${type} Event `}</Button>
       </form>
     </Form>
